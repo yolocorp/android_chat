@@ -21,19 +21,22 @@
         android:layout_height="18dp"
         android:layout_marginStart="-1dp"
         android:layout_gravity="start"
-        card_view:cardBackgroundColor="#CCCCCC"
+        card_view:cardBackgroundColor="@color/blueSky"
         card_view:cardElevation="0dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#CCCCCC">
+            android:background="@color/blueSky">
 
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/blueSky"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
                 android:fontFamily="serif"
                 android:textSize="15sp"
                 android:layout_gravity="center_horizontal"/>
@@ -41,14 +44,14 @@
             <View
                 android:id="@+id/separator1"
                 android:layout_width="wrap_content"
-                android:layout_height="1px"
-                android:background="#000000" />
+                android:layout_height="3px"
+                android:background="#ffffff" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#ffffff"
+                android:background="@color/blueSky"
                 android:orientation="horizontal"
                 android:padding="5dp">
 

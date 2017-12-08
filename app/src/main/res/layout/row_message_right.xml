@@ -20,19 +20,22 @@
             android:layout_height="18dp"
             android:layout_marginEnd="-1dp"
             android:layout_gravity="end"
-            card_view:cardBackgroundColor="#CCCCCC"
+            card_view:cardBackgroundColor="@color/teal"
             card_view:cardElevation="0dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#CCCCCC">
+            android:background="@color/teal">
 
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/teal"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
                 android:fontFamily="serif"
                 android:textSize="15sp"
                 android:layout_gravity="center_horizontal"/>
@@ -41,23 +44,15 @@
                 android:id="@+id/separator1"
                 android:layout_width="wrap_content"
                 android:layout_height="1px"
-                android:background="#000000" />
+                android:background="#ffffff" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#ffffff"
+                android:background="@color/teal"
                 android:orientation="horizontal"
                 android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:contentDescription="avatar"
-                    android:src="@drawable/user" />
 
                 <TextView
                     android:id="@+id/message"
@@ -67,6 +62,14 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="serif"
                     android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:contentDescription="avatar"
+                    android:src="@drawable/user" />
 
             </LinearLayout>
         </LinearLayout>

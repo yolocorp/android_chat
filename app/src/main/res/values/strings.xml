@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Chat</string>
+    <string name="title_activity_name_picker">NamePickerActivity</string>
+</resources>

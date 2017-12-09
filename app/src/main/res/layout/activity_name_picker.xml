@@ -23,6 +23,16 @@
         android:textStyle="normal|bold" />
 
     <EditText
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:hint="Enter your name"
+        android:textAlignment="center"
+        android:id="@+id/EditName" />
+
+    <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="225dp"
@@ -33,15 +43,7 @@
         android:textAlignment="center"
         android:id="@+id/EditEmail" />
 
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_centerHorizontal="true"
-        android:inputType="text"
-        android:hint="Enter your name"
-        android:textAlignment="center"
-        android:id="@+id/EditName" />
+
 
     <Button
         android:layout_width="wrap_content"

@@ -25,7 +25,14 @@ public class Message {
     public Message(String content, String userName, String userEmail) {
         this.content = content;
         this.userName = userName;
-        this.userEmail = userEmail;
+
+        if(userEmail.isEmpty()){
+            this.userEmail = "unknow";
+        }
+        else{
+            this.userEmail = userEmail;
+        }
+
         this.timestamp = System.currentTimeMillis();
     }
 

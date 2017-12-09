@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
     android:title="deconnexion"
     android:id="@+id/action_deconnexion"
-    android:icon="@android:drawable/ic_lock_power_off"
+    android:icon="@drawable/ic_deconnexion"
     app:showAsAction="ifRoom|withText"
     />
 

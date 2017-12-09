@@ -21,22 +21,20 @@
         android:layout_height="18dp"
         android:layout_marginStart="-1dp"
         android:layout_gravity="start"
-        card_view:cardBackgroundColor="@color/blueSky"
+        card_view:cardBackgroundColor="@color/gray"
         card_view:cardElevation="0dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/blueSky">
+            android:background="@color/gray">
 
             <TextView
                 android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/blueSky"
                 android:textStyle="bold"
-                android:textColor="#ffffff"
                 android:fontFamily="serif"
                 android:textSize="15sp"
                 android:layout_gravity="center_horizontal"/>
@@ -45,13 +43,13 @@
                 android:id="@+id/separator1"
                 android:layout_width="wrap_content"
                 android:layout_height="3px"
-                android:background="#ffffff" />
+                android:background="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/blueSky"
+                android:background="@color/white"
                 android:orientation="horizontal"
                 android:padding="5dp">
 

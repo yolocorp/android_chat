@@ -16,8 +16,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:background="@drawable/wallpaper_chat"
             app:layout_constraintBottom_toTopOf="@+id/linearContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,15 +37,16 @@
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_weight="5.33"
+                android:hint="Écrivez un message..."
                 android:inputType="textMultiLine"
-                android:maxLines="3"/>
+                android:maxLines="3" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/sendButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_weight="0"
-                android:text="Send"/>
+                android:src="@drawable/ic_send"/>
 
         </LinearLayout>
 

@@ -7,38 +7,32 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
-import com.google.android.gms.tasks.Task;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Map;
 
-import static android.media.CamcorderProfile.get;
-import static android.view.Gravity.END;
 
 
 public class ChatActivity extends AppCompatActivity implements ValueEventListener {
 
     EditText ediText;
-    Button bouton;
+    ImageButton bouton;
     RecyclerView recyclerView;
     CardView cardView;
 
@@ -58,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         setContentView(R.layout.activity_chat);
 
         ediText = (EditText) findViewById(R.id.inputEditText);
-        bouton = (Button) findViewById(R.id.sendButton);
+        bouton = (ImageButton) findViewById(R.id.sendButton);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cardView = (CardView) findViewById(R.id.card_view);
         userInfos = UserStorage.getUserInfo(getBaseContext());

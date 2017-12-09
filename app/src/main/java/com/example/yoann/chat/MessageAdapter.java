@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 
 /**
@@ -91,11 +94,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             textView1 = (TextView) itemView.findViewById(R.id.username);
             textView2 = (TextView) itemView.findViewById(R.id.message);
             image = (ImageView) itemView.findViewById(R.id.avatar);
+
         }
 
         public void setData(Message message) {
             textView1.setText(message.userName + " - "+ message.getDate());
             textView2.setText(message.content);
+
+            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.userEmail);
+
+            Glide
+                    .with(image.getContext())
+                    .load(lienImage)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(image);
+                
         }
 
 

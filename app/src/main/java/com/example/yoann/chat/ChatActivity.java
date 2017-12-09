@@ -41,6 +41,8 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     DatabaseReference newDbRef;
     DatabaseReference list;
 
+    LinearLayoutManager linearLayoutManager;
+
     static DatabaseReference Dbremove;
 
     Map<String,String> userInfos;
@@ -64,7 +66,10 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
 
         connection();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mMessageAdapter);
 
 
@@ -73,9 +78,8 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
             @Override
             public void onClick(View view) {
                 sendMessage();
-                mMessageAdapter.getItemViewType(1);
                 ediText.setText("");
-            }
+                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());            }
         });
         
     }
@@ -108,11 +112,8 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     public void onDataChange(DataSnapshot dataSnapshot) {
         List<Message> items = new ArrayList<>();
         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
             items.add(postSnapshot.getValue(Message.class));
-
         }
-
         mMessageAdapter.setDatas(items);
     }
 

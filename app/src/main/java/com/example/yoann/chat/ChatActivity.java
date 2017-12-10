@@ -1,33 +1,33 @@
 package com.example.yoann.chat;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
-
-
 
 public class ChatActivity extends AppCompatActivity implements ValueEventListener {
 
@@ -39,13 +39,17 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     MessageAdapter mMessageAdapter;
     DatabaseReference mDatabaseReference;
     DatabaseReference newDbRef;
-    DatabaseReference list;
 
     LinearLayoutManager linearLayoutManager;
 
-    static DatabaseReference Dbremove;
-
     Map<String,String> userInfos;
+
+    static Context context;
+    static Context context2;
+
+    static AlertDialog.Builder alertDialogBuilder;
+
+
 
 
     @Override
@@ -58,7 +62,9 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cardView = (CardView) findViewById(R.id.card_view);
         userInfos = UserStorage.getUserInfo(getBaseContext());
-
+        context = getApplicationContext();
+        alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(
+                ChatActivity.this , R.style.Dialog));
 
         List<Message> dataList= new ArrayList<>();
 
@@ -79,7 +85,8 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
             public void onClick(View view) {
                 sendMessage();
                 ediText.setText("");
-                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());            }
+                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+            showAlertDialog("aa");}
         });
         
     }
@@ -134,6 +141,34 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference("chat/messages");
         databaseRef.child(messageKey).removeValue();
+    }
+
+    public static void showAlertDialog(final String messageKey){
+
+        alertDialogBuilder.setTitle("Delete Message");
+        alertDialogBuilder.setMessage("Do you want to delete the message ");
+        alertDialogBuilder.setCancelable(false);
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           public void onClick(DialogInterface dialog, int id) {
+
+                removeMessage(messageKey);
+
+                Toast toast = Toast.makeText(context, "Deleted Message", Toast.LENGTH_SHORT);
+                View view = toast.getView();
+                view.setBackgroundResource(R.drawable.toast);
+                toast.setView(view);
+                toast.show();
+            }
+        });
+       alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+               dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }

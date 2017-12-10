@@ -1,7 +1,6 @@
 package com.example.yoann.chat;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +12,10 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-/**
- * Created by Yoann on 27/11/2017.
- */
-
-
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    static final int DEFAULT_CARD_VIEW = 0;
-    static final int OWN_CARD_VIEW = 1;
+    private static final int DEFAULT_CARD_VIEW = 0;
+    private static final int OWN_CARD_VIEW = 1;
 
     private List<Message> mData;
     private String currentUserEmail;
@@ -55,7 +48,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             public boolean onLongClick(View v) {
 
                 String messageKey = mData.get(position).getKey();
-                ChatActivity.removeMessage(messageKey);
+                ChatActivity.showAlertDialog(messageKey);
                 notifyDataSetChanged();
                 return false;
             }
@@ -110,4 +103,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     }
+
+
 }

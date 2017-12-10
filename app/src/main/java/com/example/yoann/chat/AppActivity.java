@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class AppActivity extends AppCompatActivity {

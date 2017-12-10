@@ -1,15 +1,7 @@
 package com.example.yoann.chat;
 
-import android.content.Context;
-import android.provider.Settings;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-
-/**
- * Created by Yoann on 27/11/2017.
- */
 
 public class Message {
 
@@ -37,8 +29,7 @@ public class Message {
 
     public String getDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
-        String dateString = formatter.format(new Date(timestamp));
-        return dateString;
+        return formatter.format(new Date(timestamp));
     }
 
     public String getKey() { return this.key; }

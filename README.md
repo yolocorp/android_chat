@@ -15,4 +15,4 @@ Run
 
 ## Authors
 * Yoann Collet
-* Louis Rogeon
+* [Louis Rogeon](https://github.com/louis-rogeon)

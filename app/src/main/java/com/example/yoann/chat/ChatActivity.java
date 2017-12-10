@@ -112,7 +112,9 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     public void onDataChange(DataSnapshot dataSnapshot) {
         List<Message> items = new ArrayList<>();
         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-            items.add(postSnapshot.getValue(Message.class));
+            Message message = postSnapshot.getValue(Message.class);
+            message.setKey(postSnapshot.getKey());
+            items.add(message);
         }
         mMessageAdapter.setDatas(items);
     }
@@ -128,25 +130,10 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 new Message(ediText.getText().toString(), userInfos.get("USER_NAME"), userInfos.get("USER_EMAIL")));
     }
 
-    public static void removeMessage(){
-        Log.d("Tag2", "je suis dans le remove");
+    public static void removeMessage(String messageKey){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabaseR = database.getReference("chat/messages");
-        mDatabaseR.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d("ID", dataSnapshot.child("chat/mesages").getKey());
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-
+        DatabaseReference databaseRef = database.getReference("chat/messages");
+        databaseRef.child(messageKey).removeValue();
     }
 
 }

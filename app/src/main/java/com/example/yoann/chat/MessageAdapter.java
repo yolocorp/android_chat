@@ -50,15 +50,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.setData(mData.get(position));
-
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
-                Log.d("Tag", "je suis dans le long click");
-                Log.d("TagId", mData.get(position).toString());
-
-                ChatActivity.removeMessage();
+                String messageKey = mData.get(position).getKey();
+                ChatActivity.removeMessage(messageKey);
                 notifyDataSetChanged();
                 return false;
             }
@@ -98,10 +95,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
 
         public void setData(Message message) {
-            textView1.setText(message.userName + " - "+ message.getDate());
-            textView2.setText(message.content);
+            textView1.setText(message.getUserName() + " - "+ message.getDate());
+            textView2.setText(message.getContent());
 
-            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.userEmail);
+            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.getUserEmail());
 
             Glide
                     .with(image.getContext())

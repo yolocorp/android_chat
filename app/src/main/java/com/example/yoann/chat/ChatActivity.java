@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,11 +18,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Map;
 
@@ -32,18 +29,15 @@ import java.util.Map;
 public class ChatActivity extends AppCompatActivity implements ValueEventListener {
 
     EditText ediText;
-    ImageButton bouton;
+    ImageButton button;
     RecyclerView recyclerView;
     CardView cardView;
 
     MessageAdapter mMessageAdapter;
     DatabaseReference mDatabaseReference;
     DatabaseReference newDbRef;
-    DatabaseReference list;
 
     LinearLayoutManager linearLayoutManager;
-
-    static DatabaseReference Dbremove;
 
     Map<String,String> userInfos;
 
@@ -54,7 +48,7 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         setContentView(R.layout.activity_chat);
 
         ediText = (EditText) findViewById(R.id.inputEditText);
-        bouton = (ImageButton) findViewById(R.id.sendButton);
+        button = (ImageButton) findViewById(R.id.sendButton);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cardView = (CardView) findViewById(R.id.card_view);
         userInfos = UserStorage.getUserInfo(getBaseContext());
@@ -72,16 +66,14 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mMessageAdapter);
 
-
-
-        bouton.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
                 ediText.setText("");
                 recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());            }
         });
-        
+
     }
 
     @Override
@@ -113,14 +105,13 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         List<Message> items = new ArrayList<>();
         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
             items.add(postSnapshot.getValue(Message.class));
+            Message.setId(postSnapshot.getKey());
         }
         mMessageAdapter.setDatas(items);
     }
 
     @Override
-    public void onCancelled(DatabaseError databaseError) {
-
-    }
+    public void onCancelled(DatabaseError databaseError) { }
 
     public void sendMessage() {
         newDbRef = mDatabaseReference.push();
@@ -128,25 +119,22 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 new Message(ediText.getText().toString(), userInfos.get("USER_NAME"), userInfos.get("USER_EMAIL")));
     }
 
-    public static void removeMessage(){
-        Log.d("Tag2", "je suis dans le remove");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabaseR = database.getReference("chat/messages");
+    public static void removeMessage(final int position){
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference mDatabaseR = database.getReference("chat/messages");
+
         mDatabaseR.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d("ID", dataSnapshot.child("chat/mesages").getKey());
 
-
+            String key = dataSnapshot.child(Message.getId(position)).getKey();
+            mDatabaseR.child(key).removeValue();
+            Message.removeId(position);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-
+            public void onCancelled(DatabaseError databaseError) {}});
     }
 
 }

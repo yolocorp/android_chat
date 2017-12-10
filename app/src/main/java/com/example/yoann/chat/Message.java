@@ -2,9 +2,12 @@ package com.example.yoann.chat;
 
 import android.content.Context;
 import android.provider.Settings;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +18,9 @@ public class Message {
 
     public String content;
     public String userName;
-    public String userEmail;
+    public String userEmail = "unknown";
+
+    static public List<String> Id = new ArrayList<>();
 
     public Long timestamp;
 
@@ -25,14 +30,7 @@ public class Message {
     public Message(String content, String userName, String userEmail) {
         this.content = content;
         this.userName = userName;
-
-        if(userEmail.isEmpty()){
-            this.userEmail = "unknow";
-        }
-        else{
-            this.userEmail = userEmail;
-        }
-
+        this.userEmail = userEmail;
         this.timestamp = System.currentTimeMillis();
     }
 
@@ -44,6 +42,19 @@ public class Message {
 
     public String getUserEmail() {
         return this.userEmail;
+    }
+
+    public static void setId(String key){
+        Log.d("tag", key);
+        Id.add(key);
+    }
+
+    public static String getId(int position){
+        return Id.get(position);
+    }
+
+    public static void removeId(int position){
+        Id.remove(position);
     }
 
 }

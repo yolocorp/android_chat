@@ -1,7 +1,7 @@
 package com.example.yoann.chat;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +21,12 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    static final int DEFAULT_CARD_VIEW = 0;
-    static final int OWN_CARD_VIEW = 1;
+    private static final int DEFAULT_CARD_VIEW = 0;
+    private static final int OWN_CARD_VIEW = 1;
 
     private List<Message> mData;
     private String currentUserEmail;
-    View view;
+    private View view;
 
     public MessageAdapter(List<Message> mData, String currentUserEmail) {
         this.mData = mData;
@@ -54,12 +54,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                Log.d("Tag", "je suis dans le long click");
-                Log.d("TagId", mData.get(position).toString());
-
-                ChatActivity.removeMessage();
-                notifyDataSetChanged();
+                ChatActivity.removeMessage(position);
                 return false;
             }
         });
@@ -101,14 +96,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             textView1.setText(message.userName + " - "+ message.getDate());
             textView2.setText(message.content);
 
-            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.userEmail);
-
             Glide
                     .with(image.getContext())
-                    .load(lienImage)
+                    .load("https://www.gravatar.com/avatar/" +  Utils.md5(message.userEmail))
                     .apply(RequestOptions.circleCropTransform())
                     .into(image);
-                
+
         }
 
 

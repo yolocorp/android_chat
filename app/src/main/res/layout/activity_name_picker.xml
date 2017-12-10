@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
-        android:text="Enter your credentials \n to log in app"
+        android:text="@string/textViewTitre"
         android:textAlignment="center"
         android:fontFamily="serif"
         android:textSize="22sp"
@@ -28,7 +28,7 @@
         android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
         android:inputType="text"
-        android:hint="Enter your name"
+        android:hint="@string/inputName"
         android:textAlignment="center"
         android:id="@+id/EditName" />
 
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="210dp"
-        android:text="Unspecified name"
+        android:text="@string/errorName"
         android:fontFamily="serif"
         android:textSize="18sp"
         android:textStyle="normal|bold"
@@ -52,7 +52,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:inputType="textEmailAddress"
-        android:hint="Enter your email"
+        android:hint="@string/inputEmail"
         android:textAlignment="center"
         android:id="@+id/EditEmail" />
 
@@ -63,7 +63,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="310dp"
         android:fontFamily="serif"
-        android:text="Unspecified email"
+        android:text="@string/errorEmail"
         android:textColor="@color/red"
         android:textSize="18sp"
         android:textStyle="normal|bold"
@@ -75,7 +75,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:text="Log in"
+        android:text="@string/log_in"
         android:id="@+id/ButtonSubmit" />
 
 </RelativeLayout>

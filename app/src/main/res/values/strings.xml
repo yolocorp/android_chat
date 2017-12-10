@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Chat</string>
     <string name="title_activity_name_picker">NamePickerActivity</string>
+    <string name="send">Send</string>
+    <string name="inputMessage">Écrivez un message...</string>
+    <string name="textViewTitre">Enter your credentials   to log in app</string>
+    <string name="inputName">Enter your name</string>
+    <string name="inputEmail">Enter your email</string>
+    <string name="log_in">Log in</string>
+    <string name="errorEmail">Unspecified email</string>
+    <string name="errorName">Unspecified name</string>
+    <string name="avatar">avatar</string>
+    <string name="deconnexion">deconnexion</string>
 </resources>

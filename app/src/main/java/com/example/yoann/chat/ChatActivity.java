@@ -45,7 +45,6 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     Map<String, String> userInfos;
 
     static Context context;
-    static Context context2;
 
     static AlertDialog.Builder alertDialogBuilder;
 
@@ -83,7 +82,6 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 sendMessage();
                 ediText.setText("");
                 recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
-                showAlertDialog("aa");
             }
         });
 

@@ -3,14 +3,10 @@ package com.example.yoann.chat;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * Created by Yoann on 09/12/2017.
- */
-
-public class Utils {
+class Utils {
 
 
-    public static final String md5(final String s) {
+    static String md5(final String s) {
         final String MD5 = "MD5";
         try {
             // Create MD5 Hash

@@ -19,9 +19,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private List<Message> mData;
     private String currentUserEmail;
-    View view;
+    private View view;
 
-    public MessageAdapter(List<Message> mData, String currentUserEmail) {
+    MessageAdapter(List<Message> mData, String currentUserEmail) {
         this.mData = mData;
         this.currentUserEmail = currentUserEmail;
     }
@@ -69,7 +69,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    public void setDatas(List<Message> message) {
+    void setDatas(List<Message> message) {
         mData = message;
         notifyDataSetChanged();
     }
@@ -79,7 +79,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         TextView textView1, textView2;
         ImageView image;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             textView1 = (TextView) itemView.findViewById(R.id.username);
             textView2 = (TextView) itemView.findViewById(R.id.message);

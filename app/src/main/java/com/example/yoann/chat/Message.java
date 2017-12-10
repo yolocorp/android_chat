@@ -7,45 +7,44 @@ public class Message {
 
     private String key;
     private String content;
-    private String userName;
+    private String userName = "unknown";
     private String userEmail = "unknown";
 
     private Long timestamp;
 
-    public Message() {
-    }
-
     public String toString() {
         return "{key:" + this.getKey() + ", content:" + this.getContent() + ", name:" + this.getUserName() + ", email:" + this.getUserEmail();
     }
+    Message(){
+    }
 
-    public Message(String content, String userName, String userEmail) {
+    Message(String content, String userName, String userEmail) {
         this.content = content;
-        this.userName = (userName == null) ? "Unknown" : userName;
+        this.userName = (userName == null) ? "unknown" : userName;
         this.userEmail = (userEmail == null) ? "unknown" : userEmail;
 
         this.timestamp = System.currentTimeMillis();
     }
 
-    public String getDate() {
+    String getDate() {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
         return formatter.format(new Date(timestamp));
     }
 
-    public String getKey() {
+    String getKey() {
         return this.key;
     }
 
-    public void setKey(String key) {
+    void setKey(String key) {
         this.key = key;
     }
 
-    public String getUserEmail() {
+    String getUserEmail() {
         return this.userEmail;
     }
 
-    public String getContent() {
+    String getContent() {
         return content;
     }
 
@@ -53,7 +52,7 @@ public class Message {
         this.content = (content == null) ? "empty message" : content;
     }
 
-    public String getUserName() {
+    String getUserName() {
         return userName;
     }
 

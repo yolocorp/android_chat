@@ -7,13 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NamePickerActivity extends AppCompatActivity implements TextWatcher {
 
@@ -82,6 +82,13 @@ public class NamePickerActivity extends AppCompatActivity implements TextWatcher
                     UserStorage.saveUserInfo(getBaseContext(), name, mail);
                     Intent intent = new Intent(getBaseContext(), AppActivity.class);
                     startActivity(intent);
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Bonjour " + name, Toast.LENGTH_SHORT);
+                    View v = toast.getView();
+                    v.setBackgroundResource(R.drawable.toast);
+                    toast.setView(v);
+                    toast.show();
+
                     finish();
                 }
             }

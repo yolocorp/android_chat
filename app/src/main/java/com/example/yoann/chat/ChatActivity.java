@@ -1,5 +1,8 @@
 package com.example.yoann.chat;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +10,14 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,12 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-
 public class ChatActivity extends AppCompatActivity implements ValueEventListener {
 
     EditText ediText;
-    ImageButton button;
+    ImageButton bouton;
     RecyclerView recyclerView;
     CardView cardView;
 
@@ -41,6 +44,13 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
 
     Map<String,String> userInfos;
 
+    static Context context;
+    static Context context2;
+
+    static AlertDialog.Builder alertDialogBuilder;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +58,13 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         setContentView(R.layout.activity_chat);
 
         ediText = (EditText) findViewById(R.id.inputEditText);
-        button = (ImageButton) findViewById(R.id.sendButton);
+        bouton = (ImageButton) findViewById(R.id.sendButton);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         cardView = (CardView) findViewById(R.id.card_view);
         userInfos = UserStorage.getUserInfo(getBaseContext());
-
+        context = getApplicationContext();
+        alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(
+                ChatActivity.this , R.style.Dialog));
 
         List<Message> dataList= new ArrayList<>();
 
@@ -66,14 +78,17 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(mMessageAdapter);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+        bouton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
                 ediText.setText("");
-                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());            }
+                recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+            showAlertDialog("aa");}
         });
-
+        
     }
 
     @Override
@@ -104,14 +119,17 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
     public void onDataChange(DataSnapshot dataSnapshot) {
         List<Message> items = new ArrayList<>();
         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-            items.add(postSnapshot.getValue(Message.class));
-            Message.setId(postSnapshot.getKey());
+            Message message = postSnapshot.getValue(Message.class);
+            message.setKey(postSnapshot.getKey());
+            items.add(message);
         }
         mMessageAdapter.setDatas(items);
     }
 
     @Override
-    public void onCancelled(DatabaseError databaseError) { }
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
 
     public void sendMessage() {
         newDbRef = mDatabaseReference.push();
@@ -119,22 +137,38 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 new Message(ediText.getText().toString(), userInfos.get("USER_NAME"), userInfos.get("USER_EMAIL")));
     }
 
-    public static void removeMessage(final int position){
+    public static void removeMessage(String messageKey){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseRef = database.getReference("chat/messages");
+        databaseRef.child(messageKey).removeValue();
+    }
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference mDatabaseR = database.getReference("chat/messages");
+    public static void showAlertDialog(final String messageKey){
 
-        mDatabaseR.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        alertDialogBuilder.setTitle("Delete Message");
+        alertDialogBuilder.setMessage("Do you want to delete the message ");
+        alertDialogBuilder.setCancelable(false);
 
-            String key = dataSnapshot.child(Message.getId(position)).getKey();
-            mDatabaseR.child(key).removeValue();
-            Message.removeId(position);
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+           public void onClick(DialogInterface dialog, int id) {
+
+                removeMessage(messageKey);
+
+                Toast toast = Toast.makeText(context, "Deleted Message", Toast.LENGTH_SHORT);
+                View view = toast.getView();
+                view.setBackgroundResource(R.drawable.toast);
+                toast.setView(view);
+                toast.show();
             }
+        });
+       alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+               dialog.cancel();
+            }
+        });
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}});
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }

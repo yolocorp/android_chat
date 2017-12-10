@@ -1,6 +1,5 @@
 package com.example.yoann.chat;
 
-import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-/**
- * Created by Yoann on 27/11/2017.
- */
-
-
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private static final int DEFAULT_CARD_VIEW = 0;
@@ -26,7 +19,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private List<Message> mData;
     private String currentUserEmail;
-    private View view;
+    View view;
 
     public MessageAdapter(List<Message> mData, String currentUserEmail) {
         this.mData = mData;
@@ -50,11 +43,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.setData(mData.get(position));
-
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ChatActivity.removeMessage(position);
+
+                String messageKey = mData.get(position).getKey();
+                ChatActivity.showAlertDialog(messageKey);
+                notifyDataSetChanged();
                 return false;
             }
         });
@@ -93,17 +88,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
 
         public void setData(Message message) {
-            textView1.setText(message.userName + " - "+ message.getDate());
-            textView2.setText(message.content);
+            textView1.setText(message.getUserName() + " - "+ message.getDate());
+            textView2.setText(message.getContent());
+
+            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.getUserEmail());
 
             Glide
                     .with(image.getContext())
-                    .load("https://www.gravatar.com/avatar/" +  Utils.md5(message.userEmail))
+                    .load(lienImage)
                     .apply(RequestOptions.circleCropTransform())
                     .into(image);
-
+                
         }
 
 
     }
+
+
 }

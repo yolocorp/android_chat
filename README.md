@@ -14,5 +14,5 @@ Open App in Android Studio.
 Run
 
 ## Authors
-* Yoann Collet
+* [Yoann Collet](https://github.com/YoannCollet)
 * [Louis Rogeon](https://github.com/louis-rogeon)

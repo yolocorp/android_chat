@@ -32,25 +32,49 @@
         android:textAlignment="center"
         android:id="@+id/EditName" />
 
+    <TextView
+        android:id="@+id/error_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:text="Unspecified name"
+        android:fontFamily="serif"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:textColor="@color/red"
+        android:visibility="invisible"/>
+
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:inputType="textEmailAddress"
-        android:hint="Enter your email address"
+        android:hint="Enter your email"
         android:textAlignment="center"
         android:id="@+id/EditEmail" />
 
-
+    <TextView
+        android:id="@+id/error_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="310dp"
+        android:fontFamily="serif"
+        android:text="Unspecified email"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="113dp"
+        android:layout_marginBottom="80dp"
         android:text="Log in"
         android:id="@+id/ButtonSubmit" />
 

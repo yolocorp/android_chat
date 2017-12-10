@@ -1,11 +1,14 @@
 package com.example.yoann.chat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -79,6 +82,7 @@ public class NamePickerActivity extends AppCompatActivity implements TextWatcher
                     UserStorage.saveUserInfo(getBaseContext(), name, mail);
                     Intent intent = new Intent(getBaseContext(), AppActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -103,12 +107,10 @@ public class NamePickerActivity extends AppCompatActivity implements TextWatcher
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
     }
 
     @Override
@@ -121,5 +123,29 @@ public class NamePickerActivity extends AppCompatActivity implements TextWatcher
             hideErrorName();
             hideErrorEmail();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder;
+        alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(
+                NamePickerActivity.this, R.style.Dialog));
+        alertDialogBuilder.setTitle("Really Exit ?");
+        alertDialogBuilder.setMessage("Are you sure you want to exit ? ");
+        alertDialogBuilder.setCancelable(false);
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                NamePickerActivity.super.onBackPressed();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

@@ -42,14 +42,12 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
 
     LinearLayoutManager linearLayoutManager;
 
-    Map<String,String> userInfos;
+    Map<String, String> userInfos;
 
     static Context context;
     static Context context2;
 
     static AlertDialog.Builder alertDialogBuilder;
-
-
 
 
     @Override
@@ -64,9 +62,9 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         userInfos = UserStorage.getUserInfo(getBaseContext());
         context = getApplicationContext();
         alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(
-                ChatActivity.this , R.style.Dialog));
+                ChatActivity.this, R.style.Dialog));
 
-        List<Message> dataList= new ArrayList<>();
+        List<Message> dataList = new ArrayList<>();
 
         mMessageAdapter = new MessageAdapter(dataList, userInfos.get("USER_EMAIL"));
 
@@ -79,16 +77,16 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         recyclerView.setAdapter(mMessageAdapter);
 
 
-
         bouton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendMessage();
                 ediText.setText("");
                 recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
-            showAlertDialog("aa");}
+                showAlertDialog("aa");
+            }
         });
-        
+
     }
 
     @Override
@@ -101,15 +99,16 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
         int id = item.getItemId();
 
         if (id == R.id.action_deconnexion) {
-            UserStorage.saveUserInfo(getBaseContext(),null,null);
-            Intent intent = new Intent (getBaseContext(), AppActivity.class);
+            UserStorage.saveUserInfo(getBaseContext(), null, null);
+            Intent intent = new Intent(getBaseContext(), AppActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void connection(){
+    public void connection() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabaseReference = database.getReference("chat/messages");
         mDatabaseReference.addValueEventListener(this);
@@ -137,20 +136,20 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 new Message(ediText.getText().toString(), userInfos.get("USER_NAME"), userInfos.get("USER_EMAIL")));
     }
 
-    public static void removeMessage(String messageKey){
+    public static void removeMessage(String messageKey) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference("chat/messages");
         databaseRef.child(messageKey).removeValue();
     }
 
-    public static void showAlertDialog(final String messageKey){
+    public static void showAlertDialog(final String messageKey) {
 
         alertDialogBuilder.setTitle("Delete Message");
         alertDialogBuilder.setMessage("Do you want to delete the message ");
         alertDialogBuilder.setCancelable(false);
 
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-           public void onClick(DialogInterface dialog, int id) {
+            public void onClick(DialogInterface dialog, int id) {
 
                 removeMessage(messageKey);
 
@@ -161,9 +160,30 @@ public class ChatActivity extends AppCompatActivity implements ValueEventListene
                 toast.show();
             }
         });
-       alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-               dialog.cancel();
+                dialog.cancel();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        alertDialogBuilder.setTitle("Really Exit ?");
+        alertDialogBuilder.setMessage("Are you sure you want to exit ? ");
+        alertDialogBuilder.setCancelable(false);
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ChatActivity.super.onBackPressed();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
             }
         });
 

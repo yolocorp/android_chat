@@ -21,18 +21,21 @@ public class Message {
 
     public Message(String content, String userName, String userEmail) {
         this.content = content;
-        this.userName = (userName == null)? "Unknown" : userName;
-        this.userEmail = (userEmail == null)? "unknown" : userEmail;
+        this.userName = (userName == null) ? "Unknown" : userName;
+        this.userEmail = (userEmail == null) ? "unknown" : userEmail;
 
         this.timestamp = System.currentTimeMillis();
     }
 
     public String getDate() {
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
         return formatter.format(new Date(timestamp));
     }
 
-    public String getKey() { return this.key; }
+    public String getKey() {
+        return this.key;
+    }
 
     public void setKey(String key) {
         this.key = key;
@@ -47,7 +50,7 @@ public class Message {
     }
 
     public void setContent(String content) {
-        this.content = (content == null)? "empty message" : content;
+        this.content = (content == null) ? "empty message" : content;
     }
 
     public String getUserName() {
@@ -55,11 +58,11 @@ public class Message {
     }
 
     public void setUserName(String userName) {
-        this.userName = (userName == null)? "Unknown" : userName;
+        this.userName = (userName == null) ? "Unknown" : userName;
     }
 
     public void setUserEmail(String userEmail) {
-        this.userEmail = (userEmail == null)? "unknown" : userEmail;
+        this.userEmail = (userEmail == null) ? "unknown" : userEmail;
     }
 
     public Long getTimestamp() {
@@ -67,7 +70,7 @@ public class Message {
     }
 
     public void setTimestamp(Long timestamp) {
-        this.timestamp = (timestamp == null)? System.currentTimeMillis() : timestamp;
+        this.timestamp = (timestamp == null) ? System.currentTimeMillis() : timestamp;
     }
 }
 

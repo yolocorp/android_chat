@@ -13,14 +13,15 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
 
-        Map<String,String> userInfos = UserStorage.getUserInfo(getBaseContext());
-        if (userInfos.get("USER_NAME") != null && userInfos.get("USER_EMAIL") != null){
-            Intent intent = new Intent(getBaseContext() , ChatActivity.class);
+        Map<String, String> userInfos = UserStorage.getUserInfo(getBaseContext());
+        if (userInfos.get("USER_NAME") != null && userInfos.get("USER_EMAIL") != null) {
+            Intent intent = new Intent(getBaseContext(), ChatActivity.class);
             startActivity(intent);
-        }
-        else{
-            Intent intent = new Intent(getBaseContext() , NamePickerActivity.class);
+            finish();
+        } else {
+            Intent intent = new Intent(getBaseContext(), NamePickerActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }

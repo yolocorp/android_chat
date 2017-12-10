@@ -1,12 +1,12 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-class Utils {
+public class CryptUtil {
 
 
-    static String md5(final String s) {
+    public static String md5(final String s) {
         final String MD5 = "MD5";
         try {
             // Create MD5 Hash

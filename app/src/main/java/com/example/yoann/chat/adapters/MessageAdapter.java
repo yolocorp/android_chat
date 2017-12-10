@@ -1,4 +1,4 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.yoann.chat.R;
+import com.example.yoann.chat.utils.CryptUtil;
+import com.example.yoann.chat.activities.ChatActivity;
+import com.example.yoann.chat.models.Message;
 
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private String currentUserEmail;
     private View view;
 
-    MessageAdapter(List<Message> mData, String currentUserEmail) {
+    public MessageAdapter(List<Message> mData, String currentUserEmail) {
         this.mData = mData;
         this.currentUserEmail = currentUserEmail;
     }
@@ -69,7 +73,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    void setDatas(List<Message> message) {
+    public void setDatas(List<Message> message) {
         mData = message;
         notifyDataSetChanged();
     }
@@ -91,7 +95,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             textView1.setText(message.getUserName() + " - "+ message.getDate());
             textView2.setText(message.getContent());
 
-            String lienImage = "https://www.gravatar.com/avatar/" +  Utils.md5(message.getUserEmail());
+            String lienImage = "https://www.gravatar.com/avatar/" +  CryptUtil.md5(message.getUserEmail());
 
             Glide
                     .with(image.getContext())

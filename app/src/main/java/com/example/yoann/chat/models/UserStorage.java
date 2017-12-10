@@ -1,4 +1,4 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,16 +7,16 @@ import android.preference.PreferenceManager;
 import java.util.HashMap;
 import java.util.Map;
 
-class UserStorage {
+public class UserStorage {
 
-    static void saveUserInfo(Context context, String name, String email) {
+    public static void saveUserInfo(Context context, String name, String email) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString("USER_NAME", name);
         editor.putString("USER_EMAIL", email);
         editor.apply();
     }
 
-    static Map<String, String> getUserInfo(Context context){
+    public static Map<String, String> getUserInfo(Context context){
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(context);
         Map<String, String> userInfos = new HashMap<String, String>();
         userInfos.put("USER_NAME", sh.getString("USER_NAME", null));

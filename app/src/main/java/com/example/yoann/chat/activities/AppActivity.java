@@ -1,8 +1,11 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.yoann.chat.R;
+import com.example.yoann.chat.models.UserStorage;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.models;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,10 +15,11 @@ public class Message {
     public String toString() {
         return "{key:" + this.getKey() + ", content:" + this.getContent() + ", name:" + this.getUserName() + ", email:" + this.getUserEmail();
     }
-    Message(){
+
+    public Message(){
     }
 
-    Message(String content, String userName, String userEmail) {
+    public Message(String content, String userName, String userEmail) {
         this.content = content;
         this.userName = (userName == null) ? "unknown" : userName;
         this.userEmail = (userEmail == null) ? "unknown" : userEmail;
@@ -26,25 +27,25 @@ public class Message {
         this.timestamp = System.currentTimeMillis();
     }
 
-    String getDate() {
+    public String getDate() {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
         return formatter.format(new Date(timestamp));
     }
 
-    String getKey() {
+    public String getKey() {
         return this.key;
     }
 
-    void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
-    String getUserEmail() {
+    public String getUserEmail() {
         return this.userEmail;
     }
 
-    String getContent() {
+    public String getContent() {
         return content;
     }
 
@@ -52,7 +53,7 @@ public class Message {
         this.content = (content == null) ? "empty message" : content;
     }
 
-    String getUserName() {
+    public String getUserName() {
         return userName;
     }
 

@@ -1,4 +1,4 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,6 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.yoann.chat.models.Message;
+import com.example.yoann.chat.adapters.MessageAdapter;
+import com.example.yoann.chat.R;
+import com.example.yoann.chat.models.UserStorage;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

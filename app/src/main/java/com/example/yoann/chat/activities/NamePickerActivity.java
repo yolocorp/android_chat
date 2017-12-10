@@ -1,4 +1,4 @@
-package com.example.yoann.chat;
+package com.example.yoann.chat.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.yoann.chat.R;
+import com.example.yoann.chat.models.UserStorage;
 
 public class NamePickerActivity extends AppCompatActivity implements TextWatcher {
 
